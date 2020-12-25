@@ -1,13 +1,13 @@
 import React from "react";
 import axios from "axios";
 import Pet from "../components/Pet";
-import dogLoading from "../img/dog-loading.png"
-import catLink from "../img/cat-link.png";
+import catLoading from "../img/cat-loading.png"
+import dogLink from "../img/dog-link.png";
 import "./Dogs.css"
 import { Link } from "react-router-dom";
 
 
-class Dogs extends React.Component {
+class Cats extends React.Component {
     state = {
         isLoading : true,
         gettingExtraImages : false,
@@ -19,11 +19,11 @@ class Dogs extends React.Component {
       const currentLength = imageList.length;
       while(imageList.length < currentLength + 20){
         const  response = await axios({
-            url : "https://random.dog/woof.json",
+            url : "https://aws.random.cat/meow",
             method : "GET"
         });
         if (response){
-          imageList.push(response.data.url)
+          imageList.push(response.data.file)
         }
       }
       this.setState({isLoading : false, gettingExtraImages : false, imageList});
@@ -45,25 +45,25 @@ class Dogs extends React.Component {
       if (isLoading){
           content = (
             <div className="loader">
-                <img className="loader__img" src={dogLoading}></img>
+                <img className="loader__img" src={catLoading}></img>
                 <div className="loader__text">Loading...</div>
             </div>
           );
       } else if(gettingExtraImages){
         content = (
             <>
-                <h1>J'aime le chien !</h1>
+                <h1>J'aime le chat !</h1>
                 <Link to="/cats">
                   <div className="link">
-                    <img className="link__logo" src={catLink}></img>
-                    <div className="link__text">wanna see some cats?</div>
+                    <img className="link__logo" src={dogLink}></img>
+                    <div className="link__text">wanna see some dogs?</div>
                   </div>
                 </Link>
                 <div className="grid-container">
                     {imageList.map((image, index) => <Pet key={index} image={image}></Pet>)}
                 </div>
                 <div className="loader--extra">
-                    <img className="loader--extra__img" src="https://clipground.com/images/animal-gif-png-13.gif"></img>
+                    <img className="loader--extra__img" src="https://miro.medium.com/max/802/1*Rg7IE_twdBL5fhooMEhjuw.gif"></img>
                 </div>
             </>
         )
@@ -71,10 +71,10 @@ class Dogs extends React.Component {
       } else {
           content = (
             <>
-                <h1>J'aime le chien !</h1>
+                <h1>J'aime le chat !</h1>
                 <Link to="/cats">
-                  <img className="link__logo" src={catLink}></img>
-                  <div className="link__text">wanna see some cats?</div>
+                  <img className="link__logo" src={dogLink}></img>
+                  <div className="link__text">wanna see some dogs?</div>
                 </Link>
                 <div className="grid-container">
                     {imageList.map((image, index) => <Pet key={index} image={image}></Pet>)}
@@ -89,4 +89,4 @@ class Dogs extends React.Component {
       )
     }
   }
-export default Dogs;
+export default Cats;
